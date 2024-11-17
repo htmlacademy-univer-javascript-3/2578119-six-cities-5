@@ -1,4 +1,5 @@
 import {Card} from '../../components/card';
+import {Helmet} from 'react-helmet-async';
 
 type Props = {
   offersCount: number;
@@ -7,6 +8,9 @@ type Props = {
 export function MainPage({offersCount}: Props) {
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>6 cities</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">

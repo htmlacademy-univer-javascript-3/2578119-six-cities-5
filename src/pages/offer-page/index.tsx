@@ -1,6 +1,13 @@
+import {Helmet} from 'react-helmet-async';
+import {useParams} from 'react-router-dom';
+
 export function OfferPage() {
+  const params = useParams();
   return (
     <div className="page">
+      <Helmet>
+        <title>6 cities - Offer №{params.id}</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
