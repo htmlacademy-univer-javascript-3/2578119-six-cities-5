@@ -21,3 +21,12 @@ export type Location = {
   longitude: number;
   zoom: number;
 }
+
+export type CardSize = 'small' | 'medium';
+
+export type CardUse = 'cities' | 'favorites';
+
+export type FormData = {
+  rating: number;
+  review: string;
+}

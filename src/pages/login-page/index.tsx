@@ -1,4 +1,6 @@
 import {Helmet} from 'react-helmet-async';
+import {AppRoutes} from '../../constants/enum.ts';
+import {Link} from 'react-router-dom';
 
 export function LoginPage() {
   return (
@@ -10,9 +12,9 @@ export function LoginPage() {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
+              <Link to={AppRoutes.Main} className="header__logo-link">
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

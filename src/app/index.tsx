@@ -11,9 +11,10 @@ import {Offer} from '../types.ts';
 
 type Props = {
   offers: Offer[];
+  favorites: Offer[];
 }
 
-export function App({offers}: Props) {
+export function App({offers, favorites}: Props) {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -30,15 +31,15 @@ export function App({offers}: Props) {
             path={AppRoutes.Favorites}
             element={
               <PrivateRoute
-                authorizationStatus={AuthorizationStatus.NoAuth}
+                authorizationStatus={AuthorizationStatus.Auth}
               >
-                <FavoritesPage offers={offers.filter((offer) => offer.isFavorite)}/>
+                <FavoritesPage offers={favorites}/>
               </PrivateRoute>
             }
           />
           <Route
             path={AppRoutes.Offer}
-            element={<OfferPage/>}
+            element={<OfferPage offers={offers}/>}
           />
           <Route
             path="*"
