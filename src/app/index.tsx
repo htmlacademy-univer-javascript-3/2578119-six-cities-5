@@ -7,14 +7,15 @@ import {AppRoutes, AuthorizationStatus} from '../constants/enum.ts';
 import {FavoritesPage} from '../pages/favorites-page';
 import {OfferPage} from '../pages/offer-page';
 import {NotFoundPage} from '../pages/not-found-page';
-import {Offer} from '../types.ts';
+import {Offer, Review} from '../types.ts';
 
 type Props = {
   offers: Offer[];
   favorites: Offer[];
+  reviews: Review[];
 }
 
-export function App({offers, favorites}: Props) {
+export function App({offers, favorites, reviews}: Props) {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -39,7 +40,7 @@ export function App({offers, favorites}: Props) {
           />
           <Route
             path={AppRoutes.Offer}
-            element={<OfferPage offers={offers}/>}
+            element={<OfferPage offers={offers} reviews={reviews}/>}
           />
           <Route
             path="*"
