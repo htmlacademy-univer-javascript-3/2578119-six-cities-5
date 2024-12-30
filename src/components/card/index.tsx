@@ -1,7 +1,7 @@
-import {CardSize, CardClassType, Offer} from '../../types.ts';
+import {CardSize, CardClassType, Offer} from '../../utils/types.ts';
 import {Link} from 'react-router-dom';
-import {AppRoutes} from '../../constants/enum.ts';
-import {formatType} from '../../helpers.tsx';
+import {AppRoutes} from '../../utils/enums.ts';
+import {formatType} from '../../utils/helpers.tsx';
 import {RatingItem} from '../rating';
 
 type Props = {

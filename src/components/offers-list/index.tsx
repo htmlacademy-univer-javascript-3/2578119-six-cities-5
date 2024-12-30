@@ -1,4 +1,4 @@
-import {CardSize, CardClassType, Offer} from '../../types.ts';
+import {CardSize, CardClassType, Offer} from '../../utils/types.ts';
 import {Card} from '../card';
 
 type Props = {

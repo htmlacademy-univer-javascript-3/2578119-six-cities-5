@@ -1,8 +1,8 @@
 import {Helmet} from 'react-helmet-async';
 import {Navigate, useParams} from 'react-router-dom';
 import {Header} from '../../components/header';
-import {Review} from '../../types.ts';
-import {AppRoutes} from '../../constants/enum.ts';
+import {Review} from '../../utils/types.ts';
+import {AppRoutes} from '../../utils/enums.ts';
 import {ReviewsList} from '../../components/reviews-list';
 import {Map} from '../../components/map';
 import {OffersList} from '../../components/offers-list';

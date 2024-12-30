@@ -1,5 +1,5 @@
-import {Offer} from '../types.ts';
-import {cities} from '../constants/cities.ts';
+import {Offer} from '../utils/types.ts';
+import {cities} from '../utils/cities.ts';
 
 export const offersMock: Offer[] = [
   {

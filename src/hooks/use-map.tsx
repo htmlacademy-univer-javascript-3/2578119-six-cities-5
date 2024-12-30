@@ -1,6 +1,6 @@
 import {useEffect, useState, MutableRefObject, useRef} from 'react';
-import {Map, TileLayer} from 'leaflet';
-import {City} from '../types.ts';
+import {LatLng, Map, TileLayer} from 'leaflet';
+import {City} from '../utils/types.ts';
 
 export function useMap(
   mapRef: MutableRefObject<HTMLElement | null>,
@@ -16,21 +16,23 @@ export function useMap(
           lat: city.location.latitude,
           lng: city.location.longitude,
         },
-        zoom: 10
+        zoom: city.location.zoom,
       });
 
       const layer = new TileLayer(
-        'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-        {
-          attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-        }
+        'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
       );
 
       instance.addLayer(layer);
 
       setMap(instance);
       isRenderedRef.current = true;
+
+      return;
+    }
+
+    if (isRenderedRef.current) {
+      map?.panTo(new LatLng(city.location.latitude, city.location.longitude));
     }
   }, [mapRef, city]);
 

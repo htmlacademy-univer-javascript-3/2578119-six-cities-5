@@ -1,6 +1,6 @@
-import {Review} from '../../types.ts';
+import {Review} from '../../utils/types.ts';
 import {RatingItem} from '../rating';
-import {dateToMonthWordYear, dateToYearMonthDay} from '../../helpers.tsx';
+import {dateToMonthWordYear, dateToYearMonthDay} from '../../utils/helpers.tsx';
 
 type Props = {
   review: Review;
