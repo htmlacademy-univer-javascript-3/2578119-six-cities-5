@@ -10,19 +10,18 @@ import {NotFoundPage} from '../pages/not-found-page';
 import {Offer, Review} from '../types.ts';
 
 type Props = {
-  offers: Offer[];
   favorites: Offer[];
   reviews: Review[];
 }
 
-export function App({offers, favorites, reviews}: Props) {
+export function App({favorites, reviews}: Props) {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoutes.Main}
-            element={<MainPage offers={offers}/>}
+            element={<MainPage />}
           />
           <Route
             path={AppRoutes.Login}
@@ -40,7 +39,7 @@ export function App({offers, favorites, reviews}: Props) {
           />
           <Route
             path={AppRoutes.Offer}
-            element={<OfferPage offers={offers} reviews={reviews}/>}
+            element={<OfferPage reviews={reviews}/>}
           />
           <Route
             path="*"
