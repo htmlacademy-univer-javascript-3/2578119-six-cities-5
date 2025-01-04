@@ -28,3 +28,11 @@ export enum SortName {
   High_to_low = 'Price: high to low',
   Top_rated = 'Top rated first',
 }
+
+export enum Actions {
+  CITY = 'City',
+  OFFERS = 'Offers',
+  OFFER = 'Offer',
+  FAVORITES = 'Favorites',
+  COMMENTS = 'Comments'
+}

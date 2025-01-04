@@ -8,6 +8,9 @@ import {FavoritesPage} from '../pages/favorites-page';
 import {OfferPage} from '../pages/offer-page';
 import {NotFoundPage} from '../pages/not-found-page';
 import {Offer, Review} from '../utils/types.ts';
+import {useEffect} from 'react';
+import {getOffers} from '../store/thunk.ts';
+import {useAppDispatch} from '../store/hooks.ts';
 
 type Props = {
   favorites: Offer[];
@@ -15,6 +18,12 @@ type Props = {
 }
 
 export function App({favorites, reviews}: Props) {
+  const dispatch = useAppDispatch();
+
+  useEffect(()=>{
+    dispatch(getOffers());
+  },[]);
+
   return (
     <HelmetProvider>
       <BrowserRouter>

@@ -1,30 +1,27 @@
-import {useEffect, useMemo, useState} from 'react';
+import {useMemo, useState} from 'react';
 import {Helmet} from 'react-helmet-async';
 import {OffersList} from '../../components/offers-list';
 import {Header} from '../../components/header';
 import {Map} from '../../components/map';
 import {useAppDispatch, useAppSelector} from '../../store/hooks.ts';
-import {setCity, setOffers} from '../../store/action.ts';
-import {offersMock} from '../../mocks/offers.ts';
+import {setCity} from '../../store/action.ts';
 import {CityList} from '../../components/city-list';
 import {City} from '../../utils/types.ts';
 import {SortName} from '../../utils/enums.ts';
 import {SortFilter} from '../../components/sort-filter';
+import {Spinner} from '../../components/spinner';
 
 //  «Главная страница»
 export function MainPage() {
   const dispatch = useAppDispatch();
   const currentCity = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers);
+  const isLoading = useAppSelector((state) => state.isOffersLoading);
 
   const [activeCardId, setActiveCardById] = useState<string | null>(null);
-  const selectedOffer = offers.find((offer) => offer.id === activeCardId);
-
   const [currentFilter, setCurrentFilter] = useState<SortName>(SortName.Popular);
 
-  useEffect(()=>{
-    dispatch(setOffers(offersMock.filter((offer) => offer.city.name === currentCity.name)));
-  },[currentCity, dispatch]);
+  const selectedOffer = offers.find((offer) => offer.id === activeCardId);
 
   const handleChangeCity = (city: City) => {
     dispatch(setCity(city));
@@ -35,17 +32,18 @@ export function MainPage() {
   };
 
   const sortedOffers = useMemo(() => {
+    const offersByCity = offers.filter((offer) => offer.city.name === currentCity.name);
     switch (currentFilter) {
       case SortName.Low_to_high:
-        return offers.toSorted((a, b) => a.price - b.price);
+        return offersByCity.toSorted((a, b) => a.price - b.price);
       case SortName.High_to_low:
-        return offers.toSorted((a, b) => b.price - a.price);
+        return offersByCity.toSorted((a, b) => b.price - a.price);
       case SortName.Top_rated:
-        return offers.toSorted((a, b) => b.rating - a.rating);
+        return offersByCity.toSorted((a, b) => b.rating - a.rating);
       default:
-        return offers;
+        return offersByCity;
     }
-  }, [offers, currentFilter]);
+  }, [offers, currentFilter, currentCity]);
 
   return (
     <div className="page page--gray page--main">
@@ -65,23 +63,25 @@ export function MainPage() {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in {currentCity.name}</b>
+              <b className="places__found">{sortedOffers.length} places to stay in {currentCity.name}</b>
               <SortFilter currentFilter={currentFilter} onFilterChange={onFilterChange}/>
-              <div className="cities__places-list places__list tabs__content">
-                <OffersList
-                  block={'cities'}
-                  offers={sortedOffers}
-                  size={'medium'}
-                  onMouseEnter={setActiveCardById}
-                  onMouseLeave={() => setActiveCardById(null)}
-                />
-              </div>
+              {isLoading
+                ? <Spinner/> :
+                <div className="cities__places-list places__list tabs__content">
+                  <OffersList
+                    block={'cities'}
+                    offers={sortedOffers}
+                    size={'medium'}
+                    onMouseEnter={setActiveCardById}
+                    onMouseLeave={() => setActiveCardById(null)}
+                  />
+                </div>}
             </section>
             <div className="cities__right-section">
               <Map
                 block={'cities'}
                 city={currentCity}
-                points={offers}
+                points={sortedOffers}
                 selectedPoint={selectedOffer}
               />
             </div>
