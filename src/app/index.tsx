@@ -9,7 +9,7 @@ import {OfferPage} from '../pages/offer-page';
 import {NotFoundPage} from '../pages/not-found-page';
 import {Offer, Review} from '../utils/types.ts';
 import {useEffect} from 'react';
-import {getOffers} from '../store/thunk.ts';
+import {checkAuth, getOffers} from '../store/thunk.ts';
 import {useAppDispatch} from '../store/hooks.ts';
 
 type Props = {
@@ -21,6 +21,7 @@ export function App({favorites, reviews}: Props) {
   const dispatch = useAppDispatch();
 
   useEffect(()=>{
+    dispatch(checkAuth());
     dispatch(getOffers());
   },[]);
 
@@ -39,9 +40,7 @@ export function App({favorites, reviews}: Props) {
           <Route
             path={AppRoutes.Favorites}
             element={
-              <PrivateRoute
-                authorizationStatus={AuthorizationStatus.Auth}
-              >
+              <PrivateRoute>
                 <FavoritesPage offers={favorites}/>
               </PrivateRoute>
             }

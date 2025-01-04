@@ -51,6 +51,11 @@ type User = {
   isPro: boolean;
 }
 
+export type UserFull = User & {
+  email: string;
+  token: string;
+}
+
 export type Review = {
   id: number;
   date: Date;
@@ -58,3 +63,15 @@ export type Review = {
   comment: string;
   rating: Rating;
 }
+
+export type AuthData = {
+  email: string;
+  password: string;
+}
+
+export type ErrorMessage = {
+  type: string;
+  message: string;
+};
+
+
