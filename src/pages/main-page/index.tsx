@@ -7,16 +7,16 @@ import {useAppDispatch, useAppSelector} from '../../store/hooks.ts';
 import {setCity} from '../../store/action.ts';
 import {CityList} from '../../components/city-list';
 import {City} from '../../utils/types.ts';
-import {LoadingStatus, SortName} from '../../utils/enums.ts';
+import {Actions, LoadingStatus, SortName} from '../../utils/enums.ts';
 import {SortFilter} from '../../components/sort-filter';
 import {Spinner} from '../../components/spinner';
 
 //  «Главная страница»
 export function MainPage() {
   const dispatch = useAppDispatch();
-  const currentCity = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
-  const offersLoadingStatus = useAppSelector((state) => state.offersLoadingStatus);
+  const currentCity = useAppSelector((state) => state[Actions.City].city);
+  const offers = useAppSelector((state) => state[Actions.Offers].offers);
+  const offersLoadingStatus = useAppSelector((state) => state[Actions.Offers].offersLoadingStatus);
 
   const [activeCardId, setActiveCardById] = useState<string | null>(null);
   const [currentFilter, setCurrentFilter] = useState<SortName>(SortName.Popular);
