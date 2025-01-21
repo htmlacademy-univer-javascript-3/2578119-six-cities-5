@@ -3,7 +3,7 @@ import {AppDispatch, State} from './types.ts';
 import {AxiosInstance} from 'axios';
 import {Actions, AuthorizationStatus, LoadingStatus} from '../utils/enums.ts';
 import {
-  setAuthorizationStatus, setComments, setCommentsLoading,
+  setAuthorizationStatus, setComments, setCommentsLoading, setFavorites, setFavoritesLoading,
   setNearbyOffers,
   setOffer,
   setOfferLoading,
@@ -70,7 +70,13 @@ export const getOffers = createAsyncThunk<void, undefined, DispatchStateExtra>(
   `${Actions.Offers}/getOffers`,
   async (_arg, {dispatch, extra: api}) => {
     dispatch(setOffersLoading(LoadingStatus.Pending));
-    const {data} = await api.get<Offer[]>('/offers');
+    const {data, status} = await api.get<Offer[]>('/offers');
+
+    if (status === Number(StatusCodes.NOT_FOUND)) {
+      dispatch(setOffersLoading(LoadingStatus.Error));
+      return;
+    }
+
     dispatch(setOffers(data));
     dispatch(setOffersLoading(LoadingStatus.Success));
   },
@@ -97,31 +103,68 @@ export const getOffersNearby = createAsyncThunk<void, string, DispatchStateExtra
   `${Actions.Offers}/getOffersNearby`,
   async (id, { dispatch, extra: api }) => {
     dispatch(setOffersLoading(LoadingStatus.Pending));
-    const { data: nearbyOffers } = await api.get<Offer[]>(`/offers/${id}/nearby`);
-    dispatch(setNearbyOffers(nearbyOffers));
+    const { data, status } = await api.get<Offer[]>(`/offers/${id}/nearby`);
+
+    if (status === Number(StatusCodes.NOT_FOUND)) {
+      dispatch(setOffersLoading(LoadingStatus.Error));
+      return;
+    }
+
+    dispatch(setNearbyOffers(data));
     dispatch(setOffersLoading(LoadingStatus.Success));
   },
 );
 
 export const getComments = createAsyncThunk<void, string, DispatchStateExtra>(
-  `${Actions.Comment}/getComments`,
+  `${Actions.Comments}/getComments`,
   async (id, { dispatch, extra: api }) => {
     dispatch(setCommentsLoading(LoadingStatus.Pending));
-    const { data: comments } = await api.get<Review[]>(`/comments/${id}`);
-    dispatch(setComments(comments));
+    const { data, status } = await api.get<Review[]>(`/comments/${id}`);
+
+    if (status === Number(StatusCodes.NOT_FOUND)) {
+      dispatch(setCommentsLoading(LoadingStatus.Error));
+      return;
+    }
+
+    dispatch(setComments(data));
     dispatch(setCommentsLoading(LoadingStatus.Success));
   },
 );
 
 export const createComment = createAsyncThunk<void, { form: FormData } & { offerId: string }, DispatchStateExtra>(
-  `${Actions.Comment}/create`,
-  async ({ offerId, form }, { dispatch, getState, extra: api }) => {
+  `${Actions.Comments}/create`,
+  async ({ offerId, form }, { dispatch, extra: api }) => {
     const { status } = await api.post<FormData>(`/comments/${offerId}`, form);
 
-    const state = getState();
-
-    if (status === Number(StatusCodes.CREATED) && state.offer?.id === offerId) {
+    if (status === Number(StatusCodes.CREATED) || status === Number(StatusCodes.OK)) {
       dispatch(getComments(offerId));
+    }
+  },
+);
+
+export const getFavorites = createAsyncThunk<void, undefined, DispatchStateExtra>(
+  `${Actions.Favorites}/getFavorites`,
+  async (_arg, {dispatch, extra: api}) => {
+    dispatch(setFavoritesLoading(LoadingStatus.Pending));
+    const {status, data} = await api.get<Offer[]>('/favorite');
+    if (status === Number(StatusCodes.NOT_FOUND)) {
+      dispatch(setFavoritesLoading(LoadingStatus.Error));
+      return;
+    }
+
+    dispatch(setFavorites(data));
+    dispatch(setFavoritesLoading(LoadingStatus.Success));
+  },
+);
+
+export const changeFavorite = createAsyncThunk<void, { offerId: string; favoriteStatus: boolean }, DispatchStateExtra>(
+  `${Actions.Favorites}/changeFavorite`,
+  async ({ offerId, favoriteStatus }, { dispatch, extra: api }) => {
+    const { status } = await api.post(`/favorite/${offerId}/${favoriteStatus ? 1 : 0}`);
+
+    if ((status === Number(StatusCodes.CREATED) || status === Number(StatusCodes.OK))) {
+      dispatch(getFavorites());
+      dispatch(getOffers());
     }
   },
 );

@@ -60,32 +60,44 @@ export function MainPage() {
           </section>
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{sortedOffers.length} places to stay in {currentCity.name}</b>
-              <SortFilter currentFilter={currentFilter} onFilterChange={onFilterChange}/>
-              {offersLoadingStatus === LoadingStatus.Pending
-                ? <Spinner/> :
-                <div className="cities__places-list places__list tabs__content">
-                  <OffersList
-                    block={'cities'}
-                    offers={sortedOffers}
-                    size={'medium'}
-                    onMouseEnter={setActiveCardById}
-                    onMouseLeave={() => setActiveCardById(null)}
-                  />
-                </div>}
-            </section>
-            <div className="cities__right-section">
-              <Map
-                block={'cities'}
-                city={currentCity}
-                points={sortedOffers}
-                selectedPoint={selectedOffer}
-              />
-            </div>
-          </div>
+          {(offersLoadingStatus === LoadingStatus.Error || offersLoadingStatus === LoadingStatus.Success) && sortedOffers.length === 0 ?
+            <div className="cities__places-container cities__places-container--empty container">
+              <section className="cities__no-places">
+                <div className="cities__status-wrapper tabs__content">
+                  <b className="cities__status">No places to stay available</b>
+                  <p className="cities__status-description">We could not find any property available at the moment
+                  in {currentCity.name}
+                  </p>
+                </div>
+              </section>
+              <div className="cities__right-section"></div>
+            </div> :
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{sortedOffers.length} places to stay in {currentCity.name}</b>
+                <SortFilter currentFilter={currentFilter} onFilterChange={onFilterChange}/>
+                {offersLoadingStatus === LoadingStatus.Pending
+                  ? <Spinner/> :
+                  <div className="cities__places-list places__list tabs__content">
+                    <OffersList
+                      block={'cities'}
+                      offers={sortedOffers}
+                      size={'medium'}
+                      onMouseEnter={setActiveCardById}
+                      onMouseLeave={() => setActiveCardById(null)}
+                    />
+                  </div>}
+              </section>
+              <div className="cities__right-section">
+                <Map
+                  block={'cities'}
+                  city={currentCity}
+                  points={sortedOffers}
+                  selectedPoint={selectedOffer}
+                />
+              </div>
+            </div>}
         </div>
       </main>
     </div>

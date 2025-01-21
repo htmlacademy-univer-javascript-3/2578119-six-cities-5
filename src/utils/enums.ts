@@ -33,8 +33,8 @@ export enum Actions {
   City = 'City',
   Offers = 'Offers',
   Offer = 'Offer',
-  Favorite = 'Favorite',
-  Comment = 'Comment',
+  Favorites = 'Favorites',
+  Comments = 'Comments',
   User = 'User'
 }
 
