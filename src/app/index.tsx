@@ -7,19 +7,21 @@ import {AppRoutes, AuthorizationStatus} from '../constants/enum.ts';
 import {FavoritesPage} from '../pages/favorites-page';
 import {OfferPage} from '../pages/offer-page';
 import {NotFoundPage} from '../pages/not-found-page';
+import {Offer} from '../types.ts';
 
 type Props = {
-  offersCount: number;
+  offers: Offer[];
+  favorites: Offer[];
 }
 
-export function App({offersCount}: Props) {
+export function App({offers, favorites}: Props) {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoutes.Main}
-            element={<MainPage offersCount={offersCount}/>}
+            element={<MainPage offers={offers}/>}
           />
           <Route
             path={AppRoutes.Login}
@@ -29,15 +31,15 @@ export function App({offersCount}: Props) {
             path={AppRoutes.Favorites}
             element={
               <PrivateRoute
-                authorizationStatus={AuthorizationStatus.NoAuth}
+                authorizationStatus={AuthorizationStatus.Auth}
               >
-                <FavoritesPage/>
+                <FavoritesPage offers={favorites}/>
               </PrivateRoute>
             }
           />
           <Route
             path={AppRoutes.Offer}
-            element={<OfferPage/>}
+            element={<OfferPage offers={offers}/>}
           />
           <Route
             path="*"
