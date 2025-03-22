@@ -30,3 +30,8 @@ export type FormData = {
   rating: number;
   review: string;
 }
+
+export type Point = {
+  title: string;
+  location: Location;
+}

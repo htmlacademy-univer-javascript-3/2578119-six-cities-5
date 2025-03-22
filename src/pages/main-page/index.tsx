@@ -1,7 +1,9 @@
 import {Helmet} from 'react-helmet-async';
 import {OffersList} from '../../components/offers-list';
-import {Offer} from '../../types.ts';
+import {City, Offer} from '../../types.ts';
 import {Header} from '../../components/header';
+import {useState} from 'react';
+import {Map} from '../../components/map';
 
 type Props = {
   offers: Offer[];
@@ -9,12 +11,27 @@ type Props = {
 
 //  «Главная страница»
 export function MainPage({offers}: Props) {
+  const [activeCardId, setActiveCardById] = useState<string | null>(null);
+  const [currentCity,] = useState<City>(
+    {
+      name: 'Amsterdam',
+      location:
+        {
+          latitude: 52.37454,
+          longitude: 4.897976,
+          zoom: 8,
+        }
+    }
+  );
+
+  const selectedOffer = offers.find((offer) => offer.id === activeCardId);
+
   return (
     <div className="page page--gray page--main">
       <Helmet>
         <title>6 cities</title>
       </Helmet>
-      <Header />
+      <Header/>
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
@@ -75,11 +92,21 @@ export function MainPage({offers}: Props) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offers} size={'medium'} use={'cities'}/>
+                <OffersList
+                  offers={offers}
+                  size={'medium'}
+                  use={'cities'}
+                  onMouseEnter={setActiveCardById}
+                  onMouseLeave={() => setActiveCardById(null)}
+                />
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map
+                city={currentCity}
+                points={offers}
+                selectedPoint={selectedOffer}
+              />
             </div>
           </div>
         </div>

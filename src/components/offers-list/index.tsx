@@ -1,15 +1,14 @@
 import {CardSize, CardUse, Offer} from '../../types.ts';
 import {Card} from '../card';
-import {useState} from 'react';
-
 
 type Props = {
   offers: Offer[];
   size: CardSize;
   use: CardUse;
+  onMouseEnter?(cardId: string): void;
+  onMouseLeave?(): void;
 }
-export function OffersList({offers, size, use}: Props) {
-  const [, setActiveCardId] = useState<string>();
+export function OffersList({offers, size, use, onMouseEnter, onMouseLeave}: Props) {
   return (
     <>
       {offers.map((offer) => (
@@ -17,8 +16,8 @@ export function OffersList({offers, size, use}: Props) {
           offer={offer}
           size={size}
           use={use}
-          onMouseEnter={() => setActiveCardId(offer.id)}
-          onMouseLeave={() => setActiveCardId(undefined)}
+          onMouseEnter={() => onMouseEnter?.(offer.id)}
+          onMouseLeave={() => onMouseLeave?.()}
         />)
       )}
     </>);
