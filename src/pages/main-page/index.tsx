@@ -1,6 +1,6 @@
 import {Helmet} from 'react-helmet-async';
 import {OffersList} from '../../components/offers-list';
-import {City, Offer} from '../../types.ts';
+import {Offer} from '../../types.ts';
 import {Header} from '../../components/header';
 import {useState} from 'react';
 import {Map} from '../../components/map';
@@ -12,18 +12,6 @@ type Props = {
 //  «Главная страница»
 export function MainPage({offers}: Props) {
   const [activeCardId, setActiveCardById] = useState<string | null>(null);
-  const [currentCity,] = useState<City>(
-    {
-      name: 'Amsterdam',
-      location:
-        {
-          latitude: 52.37454,
-          longitude: 4.897976,
-          zoom: 8,
-        }
-    }
-  );
-
   const selectedOffer = offers.find((offer) => offer.id === activeCardId);
 
   return (
@@ -93,9 +81,9 @@ export function MainPage({offers}: Props) {
               </form>
               <div className="cities__places-list places__list tabs__content">
                 <OffersList
+                  block={'cities'}
                   offers={offers}
                   size={'medium'}
-                  use={'cities'}
                   onMouseEnter={setActiveCardById}
                   onMouseLeave={() => setActiveCardById(null)}
                 />
@@ -103,7 +91,8 @@ export function MainPage({offers}: Props) {
             </section>
             <div className="cities__right-section">
               <Map
-                city={currentCity}
+                block={'cities'}
+                city={offers[0].city}
                 points={offers}
                 selectedPoint={selectedOffer}
               />

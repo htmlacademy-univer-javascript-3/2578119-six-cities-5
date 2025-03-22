@@ -7,7 +7,7 @@ export type Offer = {
   location: Location;
   isFavorite: boolean;
   isPremium: boolean;
-  rating: number;
+  rating: Rating;
   previewImage: string;
 }
 
@@ -24,14 +24,34 @@ export type Location = {
 
 export type CardSize = 'small' | 'medium';
 
-export type CardUse = 'cities' | 'favorites';
+export type CardClassType = 'cities' | 'favorites' | 'near-places';
+
+export type RatingClassType = 'reviews' | 'place-card';
+
+export type MapClassType = 'cities' | 'offer';
 
 export type FormData = {
-  rating: number;
+  rating: Rating;
   review: string;
 }
 
 export type Point = {
   title: string;
   location: Location;
+}
+
+export type Rating = 0 | 1 | 2 | 3 | 4 | 5;
+
+type User = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+}
+
+export type Review = {
+  id: number;
+  date: Date;
+  user: User;
+  comment: string;
+  rating: Rating;
 }
