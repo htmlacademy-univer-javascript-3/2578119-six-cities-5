@@ -35,5 +35,3 @@ export type Point = {
   title: string;
   location: Location;
 }
-
-export type Points = Point[];
