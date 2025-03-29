@@ -1,20 +1,23 @@
 import {Helmet} from 'react-helmet-async';
 import {Navigate, useParams} from 'react-router-dom';
 import {Header} from '../../components/header';
-import {Offer, Review} from '../../types.ts';
+import {Review} from '../../types.ts';
 import {AppRoutes} from '../../constants/enum.ts';
 import {ReviewsList} from '../../components/reviews-list';
 import {Map} from '../../components/map';
 import {OffersList} from '../../components/offers-list';
+import {useAppSelector} from '../../store/hooks.ts';
 
 type Props = {
-  offers: Offer[];
   reviews: Review[];
 }
 
-export function OfferPage({offers, reviews}: Props) {
+export function OfferPage({reviews}: Props) {
   const {id} = useParams();
+  const currentCity = useAppSelector((state) => state.city);
+  const offers = useAppSelector((state) => state.offers);
   const offer = offers.find((item) => item.id === id);
+
 
   if(!offer){
     return <Navigate to={AppRoutes.NotFound} />;
@@ -152,7 +155,7 @@ export function OfferPage({offers, reviews}: Props) {
               <ReviewsList reviews={reviews}/>
             </div>
           </div>
-          <Map block={'offer'} city={offers[0].city} points={offers} />
+          <Map block={'offer'} city={currentCity} points={offers} />
         </section>
         <div className="container">
           <section className="near-places places">

@@ -1,3 +1,5 @@
+import {CityName} from './constants/enum.ts';
+
 export type Offer = {
   id: string;
   title: string;
@@ -12,7 +14,7 @@ export type Offer = {
 }
 
 export type City = {
-  name: string;
+  name: CityName;
   location: Location;
 }
 
