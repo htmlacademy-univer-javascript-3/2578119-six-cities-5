@@ -1,2 +1,3 @@
-export const URL_MARKER =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map';
+export const MARKER_DEFAULT_ICON = 'img/pin.svg';
+
+export const MARKER_ACTIVE_ICON = 'img/pin-active.svg';
