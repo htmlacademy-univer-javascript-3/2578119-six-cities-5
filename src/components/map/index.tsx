@@ -2,7 +2,7 @@ import {useRef, useEffect} from 'react';
 import {Icon, Marker, layerGroup} from 'leaflet';
 import {useMap} from '../../hooks/use-map';
 import {City, Point, MapClassType} from '../../utils/types.ts';
-import {URL_MARKER} from '../../utils/constants.ts';
+import {MARKER_DEFAULT_ICON, MARKER_ACTIVE_ICON} from '../../utils/constants.ts';
 import 'leaflet/dist/leaflet.css';
 
 
@@ -14,19 +14,19 @@ type MapProps = {
 };
 
 const defaultCustomIcon = new Icon({
-  iconUrl: `${URL_MARKER}/pin.svg`,
-  iconSize: [40, 40],
+  iconUrl: MARKER_DEFAULT_ICON,
+  iconSize: [27, 39],
   iconAnchor: [20, 40]
 });
 
 const currentCustomIcon = new Icon({
-  iconUrl: `${URL_MARKER}/main-pin.svg`,
-  iconSize: [40, 40],
+  iconUrl: MARKER_ACTIVE_ICON,
+  iconSize: [27, 39],
   iconAnchor: [20, 40]
 });
 
 export function Map(props: MapProps): JSX.Element {
-  const {block, city, points, selectedPoint} = props;
+  const { block, city, points, selectedPoint} = props;
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
