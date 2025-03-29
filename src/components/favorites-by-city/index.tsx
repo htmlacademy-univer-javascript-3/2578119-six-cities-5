@@ -17,7 +17,7 @@ export function FavoritesByCity({city, favorites}: Props) {
         </div>
       </div>
       <div className="favorites__places">
-        <OffersList offers={favorites} size={'small'} use={'favorites'}/>
+        <OffersList offers={favorites} size={'small'} block={'favorites'}/>
       </div>
     </li>
   );

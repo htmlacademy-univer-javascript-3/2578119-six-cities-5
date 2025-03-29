@@ -1,7 +1,7 @@
 import {ChangeEvent, useState} from 'react';
 import {FormData} from '../../types.ts';
 
-export function ReviewsForm() {
+export function ReviewForm() {
   const [formData, setFormData] = useState<FormData>({rating: 0, review: ''});
   const ratingMap = {
     'perfect': 5,
