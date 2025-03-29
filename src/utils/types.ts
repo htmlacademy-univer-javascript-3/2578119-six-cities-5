@@ -1,4 +1,4 @@
-import {CityName} from './constants/enum.ts';
+import {CityName} from './enums.ts';
 
 export type Offer = {
   id: string;

@@ -1,12 +1,12 @@
-import {cities} from '../../constants/cities.ts';
-import {City} from '../../types.ts';
+import {cities} from '../../utils/cities.ts';
+import {City} from '../../utils/types.ts';
 
 type Props = {
   currentCity: City;
-  onChange(city: City): void;
+  onCityChange(city: City): void;
 }
 
-export function CityList({currentCity, onChange}: Props) {
+export function CityList({currentCity, onCityChange}: Props) {
 
   return (
     <ul className="locations__list tabs__list">
@@ -16,7 +16,7 @@ export function CityList({currentCity, onChange}: Props) {
             <a
               className={`locations__item-link tabs__item ${(city.name === currentCity.name) ? 'tabs__item--active' : null}`}
               onClick={() => {
-                onChange(city);
+                onCityChange(city);
               }}
             >
               <span>{cityName}</span>

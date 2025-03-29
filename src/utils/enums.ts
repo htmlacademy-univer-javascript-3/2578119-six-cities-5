@@ -21,3 +21,10 @@ export enum CityName {
   Hamburg = 'Hamburg',
   Dusseldorf = 'Dusseldorf'
 }
+
+export enum SortName {
+  Popular = 'Popular',
+  Low_to_high = 'Price: low to high',
+  High_to_low = 'Price: high to low',
+  Top_rated = 'Top rated first',
+}

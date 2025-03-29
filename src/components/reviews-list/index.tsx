@@ -1,6 +1,6 @@
 import {ReviewForm} from '../review-form';
 import {ReviewItem} from '../review-item';
-import {Review} from '../../types.ts';
+import {Review} from '../../utils/types.ts';
 
 type Props = {
   reviews: Review[];

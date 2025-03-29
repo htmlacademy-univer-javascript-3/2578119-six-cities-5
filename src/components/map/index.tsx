@@ -1,8 +1,8 @@
 import {useRef, useEffect} from 'react';
 import {Icon, Marker, layerGroup} from 'leaflet';
 import {useMap} from '../../hooks/use-map';
-import {City, Point, MapClassType} from '../../types';
-import {MARKER_DEFAULT_ICON, MARKER_ACTIVE_ICON} from '../../constants/const.ts';
+import {City, Point, MapClassType} from '../../utils/types.ts';
+import {MARKER_DEFAULT_ICON, MARKER_ACTIVE_ICON} from '../../utils/constants.ts';
 import 'leaflet/dist/leaflet.css';
 
 

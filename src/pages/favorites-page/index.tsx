@@ -1,9 +1,9 @@
 import {Helmet} from 'react-helmet-async';
 import {Header} from '../../components/header';
-import {Offer} from '../../types.ts';
-import {getFavoritesByCity} from '../../helpers.tsx';
+import {Offer} from '../../utils/types.ts';
+import {getFavoritesByCity} from '../../utils/helpers.tsx';
 import {FavoritesByCity} from '../../components/favorites-by-city';
-import {AppRoutes} from '../../constants/enum.ts';
+import {AppRoutes} from '../../utils/enums.ts';
 import {Link} from 'react-router-dom';
 
 type Props = {

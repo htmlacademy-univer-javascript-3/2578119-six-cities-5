@@ -1,5 +1,5 @@
-import {CityName} from './enum.ts';
-import {City} from '../types.ts';
+import {CityName} from './enums.ts';
+import {City} from './types.ts';
 export const cities: Record<CityName, City> = {
   Paris: {
     name: CityName.Paris,

@@ -1,4 +1,4 @@
-import {Rating, RatingClassType} from '../../types.ts';
+import {Rating, RatingClassType} from '../../utils/types.ts';
 
 type Props = {
   block: RatingClassType;
