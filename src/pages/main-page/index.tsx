@@ -7,7 +7,7 @@ import {useAppDispatch, useAppSelector} from '../../store/hooks.ts';
 import {setCity} from '../../store/action.ts';
 import {CityList} from '../../components/city-list';
 import {City} from '../../utils/types.ts';
-import {SortName} from '../../utils/enums.ts';
+import {LoadingStatus, SortName} from '../../utils/enums.ts';
 import {SortFilter} from '../../components/sort-filter';
 import {Spinner} from '../../components/spinner';
 
@@ -16,7 +16,7 @@ export function MainPage() {
   const dispatch = useAppDispatch();
   const currentCity = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers);
-  const isLoading = useAppSelector((state) => state.isOffersLoading);
+  const offersLoadingStatus = useAppSelector((state) => state.offersLoadingStatus);
 
   const [activeCardId, setActiveCardById] = useState<string | null>(null);
   const [currentFilter, setCurrentFilter] = useState<SortName>(SortName.Popular);
@@ -34,11 +34,11 @@ export function MainPage() {
   const sortedOffers = useMemo(() => {
     const offersByCity = offers.filter((offer) => offer.city.name === currentCity.name);
     switch (currentFilter) {
-      case SortName.Low_to_high:
+      case SortName.LowToHigh:
         return offersByCity.toSorted((a, b) => a.price - b.price);
-      case SortName.High_to_low:
+      case SortName.HighToLow:
         return offersByCity.toSorted((a, b) => b.price - a.price);
-      case SortName.Top_rated:
+      case SortName.TopRated:
         return offersByCity.toSorted((a, b) => b.rating - a.rating);
       default:
         return offersByCity;
@@ -65,7 +65,7 @@ export function MainPage() {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{sortedOffers.length} places to stay in {currentCity.name}</b>
               <SortFilter currentFilter={currentFilter} onFilterChange={onFilterChange}/>
-              {isLoading
+              {offersLoadingStatus === LoadingStatus.Pending
                 ? <Spinner/> :
                 <div className="cities__places-list places__list tabs__content">
                   <OffersList

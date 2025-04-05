@@ -24,16 +24,23 @@ export enum CityName {
 
 export enum SortName {
   Popular = 'Popular',
-  Low_to_high = 'Price: low to high',
-  High_to_low = 'Price: high to low',
-  Top_rated = 'Top rated first',
+  LowToHigh = 'Price: low to high',
+  HighToLow = 'Price: high to low',
+  TopRated = 'Top rated first',
 }
 
 export enum Actions {
-  CITY = 'City',
-  OFFERS = 'Offers',
-  OFFER = 'Offer',
-  FAVORITES = 'Favorites',
-  COMMENTS = 'Comments',
-  USER = 'User'
+  City = 'City',
+  Offers = 'Offers',
+  Offer = 'Offer',
+  Favorite = 'Favorite',
+  Comment = 'Comment',
+  User = 'User'
+}
+
+export enum LoadingStatus {
+  Init = 'Init',
+  Pending = 'Pending',
+  Success = 'Success',
+  Error = 'Error'
 }

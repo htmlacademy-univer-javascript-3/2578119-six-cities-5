@@ -13,6 +13,15 @@ export type Offer = {
   previewImage: string;
 }
 
+export type OfferFull = Offer & {
+  description: string;
+  bedrooms: number;
+  goods: string[];
+  host: User;
+  images: string[];
+  maxAdults: number;
+};
+
 export type City = {
   name: CityName;
   location: Location;
@@ -28,13 +37,13 @@ export type CardSize = 'small' | 'medium';
 
 export type CardClassType = 'cities' | 'favorites' | 'near-places';
 
-export type RatingClassType = 'reviews' | 'place-card';
+export type RatingClassType = 'reviews' | 'place-card' | 'offer';
 
 export type MapClassType = 'cities' | 'offer';
 
 export type FormData = {
   rating: Rating;
-  review: string;
+  comment: string;
 }
 
 export type Point = {
@@ -58,7 +67,7 @@ export type UserFull = User & {
 
 export type Review = {
   id: number;
-  date: Date;
+  date: string;
   user: User;
   comment: string;
   rating: Rating;

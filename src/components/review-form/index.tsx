@@ -1,8 +1,13 @@
-import {ChangeEvent, useState} from 'react';
+import {ChangeEvent, FormEvent, useState} from 'react';
 import {FormData} from '../../utils/types.ts';
 
-export function ReviewForm() {
-  const [formData, setFormData] = useState<FormData>({rating: 0, review: ''});
+type Props = {
+  onSubmit(data: FormData): void;
+}
+
+export function ReviewForm({onSubmit}: Props) {
+  const initialState:FormData = {rating: 0, comment: ''};
+  const [formData, setFormData] = useState<FormData>(initialState);
   const ratingMap = {
     'perfect': 5,
     'good': 4,
@@ -11,7 +16,14 @@ export function ReviewForm() {
     'terribly': 1,
   };
   const REVIEW_MIN_LENGTH = 50;
-  const isFormValid = !!formData.rating && !!formData.review.length && formData.review.length >= REVIEW_MIN_LENGTH;
+  const isFormValid = !!formData.rating && !!formData.comment.length && formData.comment.length >= REVIEW_MIN_LENGTH;
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    onSubmit(formData);
+
+    setFormData(initialState);
+  };
 
   const handleFieldChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = evt.target;
@@ -42,14 +54,14 @@ export function ReviewForm() {
   );
 
   return (
-    <form className="reviews__form form" action="#" method="post">
-      <label className="reviews__label form__label" htmlFor="review">Your review</label>
+    <form className="reviews__form form" method="post" onSubmit={handleSubmit}>
+      <label className="reviews__label form__label" htmlFor="comment">Your review</label>
       <div className="reviews__rating-form form__rating">
         {Object.entries(ratingMap).map(renderRating)}
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review"
+      <textarea className="reviews__textarea form__textarea" id="comment" name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        value={formData.review}
+        value={formData.comment}
         onChange={handleFieldChange}
       >
       </textarea>
