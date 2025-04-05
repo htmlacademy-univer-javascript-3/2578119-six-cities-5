@@ -1,5 +1,5 @@
 import {ChangeEvent, useState} from 'react';
-import {FormData} from '../../types.ts';
+import {FormData} from '../../utils/types.ts';
 
 export function ReviewForm() {
   const [formData, setFormData] = useState<FormData>({rating: 0, review: ''});

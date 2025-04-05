@@ -1,6 +1,6 @@
 import {useEffect, useState, MutableRefObject, useRef} from 'react';
 import {LatLng, Map, TileLayer} from 'leaflet';
-import {City} from '../types.ts';
+import {City} from '../utils/types.ts';
 
 export function useMap(
   mapRef: MutableRefObject<HTMLElement | null>,
@@ -27,6 +27,12 @@ export function useMap(
 
       setMap(instance);
       isRenderedRef.current = true;
+
+      return;
+    }
+
+    if (isRenderedRef.current) {
+      map?.panTo(new LatLng(city.location.latitude, city.location.longitude));
     }
     if (isRenderedRef.current) {
       map?.panTo(new LatLng(city.location.latitude, city.location.longitude));

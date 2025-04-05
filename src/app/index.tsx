@@ -3,11 +3,11 @@ import {MainPage} from '../pages/main-page';
 import {HelmetProvider} from 'react-helmet-async';
 import {LoginPage} from '../pages/login-page';
 import {PrivateRoute} from '../private-route';
-import {AppRoutes, AuthorizationStatus} from '../constants/enum.ts';
+import {AppRoutes, AuthorizationStatus} from '../utils/enums.ts';
 import {FavoritesPage} from '../pages/favorites-page';
 import {OfferPage} from '../pages/offer-page';
 import {NotFoundPage} from '../pages/not-found-page';
-import {Offer, Review} from '../types.ts';
+import {Offer, Review} from '../utils/types.ts';
 
 type Props = {
   favorites: Offer[];

@@ -1,4 +1,4 @@
-import {Offer} from '../../types.ts';
+import {Offer} from '../../utils/types.ts';
 import {OffersList} from '../offers-list';
 
 type Props = {

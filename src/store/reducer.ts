@@ -1,7 +1,7 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {setCity, setOffers} from './action.ts';
-import {cities} from '../constants/cities.ts';
-import {City, Offer} from '../types.ts';
+import {cities} from '../utils/cities.ts';
+import {City, Offer} from '../utils/types.ts';
 
 type State = {
   city: City;

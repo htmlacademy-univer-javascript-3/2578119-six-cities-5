@@ -1,4 +1,4 @@
-import {AppRoutes} from '../../constants/enum.ts';
+import {AppRoutes} from '../../utils/enums.ts';
 import {Link} from 'react-router-dom';
 
 export function Header() {
