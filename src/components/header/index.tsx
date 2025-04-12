@@ -1,16 +1,17 @@
-import {AppRoutes, AuthorizationStatus} from '../../utils/enums.ts';
+import {Actions, AppRoutes, AuthorizationStatus} from '../../utils/enums.ts';
 import {Link, useLocation} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../store/hooks.ts';
-import {logout} from "../../store/thunk.ts";
+import {logout} from '../../store/thunk.ts';
 
 export function Header() {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const isLoginPage = location.pathname === AppRoutes.Login.toString();
 
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector((state) => state[Actions.User].authorizationStatus);
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
-  const user = useAppSelector((state) => state.user);
+  const user = useAppSelector((state) => state[Actions.User].user);
+  const favoritesLength = useAppSelector((state) => state[Actions.Favorites].favorites).length;
 
   const handleLogout = () => {
     dispatch(logout());
@@ -41,7 +42,7 @@ export function Header() {
                         <span className="header__user-name user__name">
                           {user?.name}
                         </span>
-                        <span className="header__favorite-count">fav_count</span>
+                        <span className="header__favorite-count">{favoritesLength}</span>
                       </Link>
                     </li>
                     <li className="header__nav-item">

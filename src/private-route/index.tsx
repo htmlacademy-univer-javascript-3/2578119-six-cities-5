@@ -1,4 +1,4 @@
-import {AppRoutes, AuthorizationStatus} from '../utils/enums.ts';
+import {Actions, AppRoutes, AuthorizationStatus} from '../utils/enums.ts';
 import {Navigate} from 'react-router-dom';
 import {useAppSelector} from '../store/hooks.ts';
 
@@ -7,7 +7,7 @@ type PrivateRouteProps = {
 }
 
 export function PrivateRoute(props: PrivateRouteProps): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector((state) => state[Actions.User].authorizationStatus);
   const {children} = props;
   return (
     authorizationStatus === AuthorizationStatus.Auth

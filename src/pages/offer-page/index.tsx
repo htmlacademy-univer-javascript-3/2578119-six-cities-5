@@ -28,8 +28,8 @@ export function OfferPage() {
   const nearbyOffers = useAppSelector((state) => state[Actions.Offers].nearbyOffers);
   const offersLoadingStatus = useAppSelector((state) => state[Actions.Offers].offersLoadingStatus);
 
-  const comments = useAppSelector((state) => state[Actions.Comment].comments);
-  const commentsLoadingStatus = useAppSelector((state) => state[Actions.Comment].commentsLoadingStatus);
+  const comments = useAppSelector((state) => state[Actions.Comments].comments);
+  const commentsLoadingStatus = useAppSelector((state) => state[Actions.Comments].commentsLoadingStatus);
 
   useEffect(() => {
     if (!id) {

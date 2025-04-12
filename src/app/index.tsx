@@ -7,16 +7,11 @@ import {AppRoutes} from '../utils/enums.ts';
 import {FavoritesPage} from '../pages/favorites-page';
 import {OfferPage} from '../pages/offer-page';
 import {NotFoundPage} from '../pages/not-found-page';
-import {Offer} from '../utils/types.ts';
 import {useEffect} from 'react';
 import {checkAuth, getOffers} from '../store/thunk.ts';
 import {useAppDispatch} from '../store/hooks.ts';
 
-type Props = {
-  favorites: Offer[];
-}
-
-export function App({favorites}: Props) {
+export function App() {
   const dispatch = useAppDispatch();
 
   useEffect(()=>{
@@ -40,7 +35,7 @@ export function App({favorites}: Props) {
             path={AppRoutes.Favorites}
             element={
               <PrivateRoute>
-                <FavoritesPage offers={favorites}/>
+                <FavoritesPage />
               </PrivateRoute>
             }
           />

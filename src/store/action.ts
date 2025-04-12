@@ -11,8 +11,11 @@ export const setNearbyOffers = createAction<Offer[]>(`${Actions.Offers}/setNearb
 export const setOffer = createAction<OfferFull | undefined>(`${Actions.Offer}/setOffer`);
 export const setOfferLoading = createAction<LoadingStatus>(`${Actions.Offer}/loading`);
 
-export const setComments = createAction<Review[]>(`${Actions.Comment}/setComments`);
-export const setCommentsLoading = createAction<LoadingStatus>(`${Actions.Comment}/loading`);
+export const setComments = createAction<Review[]>(`${Actions.Comments}/setComments`);
+export const setCommentsLoading = createAction<LoadingStatus>(`${Actions.Comments}/loading`);
 
-export const setAuthorizationStatus = createAction<AuthorizationStatus>(`${Actions.User}/authorization`);
+export const setAuthorizationStatus = createAction<AuthorizationStatus>(`${Actions.User}/setAuthorizationStatus`);
 export const setUser = createAction<UserFull | null>(`${Actions.User}/setUser`);
+
+export const setFavorites = createAction<Offer[]>(`${Actions.Favorites}/setFavorites`);
+export const setFavoritesLoading = createAction<LoadingStatus>(`${Actions.Favorites}/loading`);
