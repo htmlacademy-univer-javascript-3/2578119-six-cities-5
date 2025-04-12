@@ -37,7 +37,7 @@ export function Header() {
                         className="header__nav-link header__nav-link--profile"
                         to={AppRoutes.Favorites}
                       >
-                        <div className="header__avatar-wrapper user__avatar-wrapper" />
+                        <img className="header__avatar-wrapper user__avatar-wrapper" src={user?.avatarUrl} width="32" height="32" alt="avatar"/>
                         <span className="header__user-name user__name">
                           {user?.name}
                         </span>

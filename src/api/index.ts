@@ -35,7 +35,7 @@ export const createAPI = (): AxiosInstance => {
         //toast.error(message.message);
       }
 
-      throw error;
+      return error.response;
     },
   );
 

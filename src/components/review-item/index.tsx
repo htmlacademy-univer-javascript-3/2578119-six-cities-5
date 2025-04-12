@@ -17,8 +17,8 @@ export function ReviewItem({review}: Props) {
       <div className="reviews__info">
         <RatingItem block={'reviews'} rating={review.rating} />
         <p className="reviews__text">{review.comment}</p>
-        <time className="reviews__time" dateTime={dateToYearMonthDay(review.date)}>
-          {dateToMonthWordYear(review.date)}
+        <time className="reviews__time" dateTime={dateToYearMonthDay(new Date(review.date))}>
+          {dateToMonthWordYear(new Date(review.date))}
         </time>
       </div>
     </li>
