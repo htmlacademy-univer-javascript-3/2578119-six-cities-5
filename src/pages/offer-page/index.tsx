@@ -2,7 +2,7 @@ import {Helmet} from 'react-helmet-async';
 import {Navigate, useParams} from 'react-router-dom';
 import {Header} from '../../components/header';
 import {FormData} from '../../utils/types.ts';
-import {AppRoutes, AuthorizationStatus, LoadingStatus} from '../../utils/enums.ts';
+import {Actions, AppRoutes, AuthorizationStatus, LoadingStatus} from '../../utils/enums.ts';
 import {ReviewsList} from '../../components/reviews-list';
 import {Map} from '../../components/map';
 import {OffersList} from '../../components/offers-list';
@@ -17,19 +17,19 @@ import {ReviewForm} from '../../components/review-form';
 export function OfferPage() {
   const dispatch = useAppDispatch();
   const {id} = useParams();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector((state) => state[Actions.User].authorizationStatus);
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
 
-  const currentCity = useAppSelector((state) => state.city);
+  const currentCity = useAppSelector((state) => state[Actions.City].city);
 
-  const offer = useAppSelector((state) => state.offer);
-  const offerLoadingStatus = useAppSelector((state) => state.offerLoadingStatus);
+  const offer = useAppSelector((state) => state[Actions.Offer].offer);
+  const offerLoadingStatus = useAppSelector((state) => state[Actions.Offer].offerLoadingStatus);
 
-  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
-  const offersLoadingStatus = useAppSelector((state) => state.offersLoadingStatus);
+  const nearbyOffers = useAppSelector((state) => state[Actions.Offers].nearbyOffers);
+  const offersLoadingStatus = useAppSelector((state) => state[Actions.Offers].offersLoadingStatus);
 
-  const comments = useAppSelector((state) => state.comments);
-  const commentsLoadingStatus = useAppSelector((state) => state.commentsLoadingStatus);
+  const comments = useAppSelector((state) => state[Actions.Comment].comments);
+  const commentsLoadingStatus = useAppSelector((state) => state[Actions.Comment].commentsLoadingStatus);
 
   useEffect(() => {
     if (!id) {

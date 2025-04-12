@@ -1,5 +1,5 @@
 import {Helmet} from 'react-helmet-async';
-import {AppRoutes, AuthorizationStatus} from '../../utils/enums.ts';
+import {Actions, AppRoutes, AuthorizationStatus} from '../../utils/enums.ts';
 import {Navigate} from 'react-router-dom';
 import {Header} from '../../components/header';
 import {login} from '../../store/thunk.ts';
@@ -9,7 +9,7 @@ import {AuthData} from '../../utils/types.ts';
 
 export function LoginPage() {
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector((state) => state[Actions.User].authorizationStatus);
 
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
